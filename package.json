@@ -6,5 +6,24 @@
   "keywords": [
     "monorepo"
   ],
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "workspaces": [
+    "backend",
+    "jobs"
+  ],
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/node": "^22.5.5",
+    "prisma": "^5.19.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.19.1",
+    "bcrypt": "^5.1.1",
+    "dayjs": "^1.11.13"
+  }
 }
