@@ -1,12 +1,10 @@
 {
   "name": "monorepo-sandbox",
+  "private": true,
   "version": "1.0.0",
   "description": "このプロジェクトはモノレポのディレクトリ構成を検討するためのプロジェクトです。",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "monorepo"
+  ],
+  "license": "UNLICENSED"
 }
