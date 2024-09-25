@@ -38,6 +38,8 @@ monorepo-sandbox/
 │   │   └── ...
 │   ├── package.json
 │   └── tsconfig.json
+├── libs/ # util function
+│   ├── prisma/client # wrapper class
 ├── prisma/ # database orm
 │   ├── schema.prisma
 │   └── ...
@@ -62,3 +64,4 @@ monorepo-sandbox/
 - **独立したプロジェクトとしての管理**: 各プロジェクトをモノレポの一部として統合しながらも、個別に開発やデプロイができるようにします。
 
 このように、`root`の`package.json`は全体を統括し、各プロジェクトの`package.json`はそのプロジェクト固有の依存関係やタスクを管理します。
+
