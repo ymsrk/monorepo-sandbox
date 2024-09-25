@@ -7,7 +7,10 @@
     "monorepo"
   ],
   "scripts": {
-    "seed": "prisma migrate reset"
+    "seed": "prisma migrate reset",
+    "lint": "biome lint libs/src/**/*.ts --write",
+    "format": "biome format libs/src/**/*.ts --write",
+    "check": "biome check libs/src/**/*.ts --write"
   },
   "license": "UNLICENSED",
   "prisma": {
