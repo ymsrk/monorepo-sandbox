@@ -1,5 +1,5 @@
-import { prisma } from '../libs/src/prismaClient';
 import bcrypt from 'bcrypt';
+import prisma from '../libs/src/prismaClient';
 
 const nodeStatus = process.env.NODE_ENV
 
@@ -39,9 +39,27 @@ async function main() {
       }
     }
   });
+  
+  // post_dateに新規登録
+  const postDate = await prisma.postDate.create({
+    data: {
+      postCreatedAt: new Date(),
+      postUpdatedAt: new Date(),
+    }
+  });
+  
+  const postDate2 = await prisma.postDate.create({
+    data: {
+      postCreatedAt: new Date(),
+      postUpdatedAt: new Date(),
+    }
+  });
 
   console.log(`😻  ${nodeStatus}`)
-  console.log({ user, comment });
+  console.log({ user, comment, postDate });
+  
+  const getPostDate = await prisma.postDate.findMany();
+  console.log(getPostDate[0].postUpdatedAt,);
 }
 
 main()
