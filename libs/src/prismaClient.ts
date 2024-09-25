@@ -22,16 +22,19 @@ const client = new PrismaClient({
   ],
 });
 
-// イベントリスナーの設定
-client.$on("query", (e) => {
-  console.log(`🔍 Query: ${e.query}`);
-  console.log(`📦 Params: ${e.params}`);
-  console.log(`⏳ Duration: ${e.duration}ms`);
-});
+// 開発環境またはDEBUG_LOGがtrueの場合のみログを出力
+if (process.env.NODE_ENV === "development" || process.env.DEBUG_LOG === "true") {
+  // イベントリスナーの設定
+  client.$on("query", (e) => {
+    console.log(`🔍 Query: ${e.query}`);
+    console.log(`📦 Params: ${e.params}`);
+    console.log(`⏳ Duration: ${e.duration}ms`);
+  });
 
-client.$on("info", (e) => {
-  console.log(`🟢 Info: ${e.message}`);
-});
+  client.$on("info", (e) => {
+    console.log(`🟢 Info: ${e.message}`);
+  });
+}
 
 client.$on("warn", (e) => {
   console.warn(`🟡 Warning: ${e.message}`);
