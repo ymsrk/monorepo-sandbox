@@ -6,6 +6,9 @@
   "keywords": [
     "monorepo"
   ],
+  "scripts": {
+    "seed": "prisma migrate reset"
+  },
   "license": "UNLICENSED",
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
@@ -15,6 +18,7 @@
     "jobs"
   ],
   "devDependencies": {
+    "@biomejs/biome": "1.9.2",
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^22.5.5",
     "prisma": "^5.19.1",
@@ -23,7 +27,6 @@
   },
   "dependencies": {
     "@prisma/client": "^5.19.1",
-    "bcrypt": "^5.1.1",
-    "dayjs": "^1.11.13"
+    "bcrypt": "^5.1.1"
   }
 }
