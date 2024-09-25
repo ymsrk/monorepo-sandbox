@@ -8,9 +8,9 @@
   ],
   "scripts": {
     "seed": "prisma migrate reset",
-    "lint": "biome lint libs/src/**/*.ts --write",
-    "format": "biome format libs/src/**/*.ts --write",
-    "check": "biome check libs/src/**/*.ts --write"
+    "lint": "biome lint libs/src --write --verbose",
+    "format": "biome format libs/src --write --verbose",
+    "check": "biome check libs/src --write --verbose"
   },
   "license": "UNLICENSED",
   "prisma": {
