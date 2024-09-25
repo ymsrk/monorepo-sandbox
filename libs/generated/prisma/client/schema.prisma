@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../lib/prisma"
+  output   = "../libs/generated/prisma/client"
 }
 
 datasource db {
@@ -16,8 +16,8 @@ datasource db {
 
 model User {
   id        Int       @id @default(autoincrement())
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
+  createdAt DateTime  @default(dbgenerated("NOW(3)")) @map("created_at")
+  updatedAt DateTime  @default(dbgenerated("NOW(3) ON UPDATE NOW(3)")) @map("updated_at")
   email     String    @unique @map("email")
   name      String?   @map("name")
   password  String    @map("password")
@@ -29,8 +29,8 @@ model User {
 
 model Post {
   id        Int       @id @default(autoincrement())
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
+  createdAt DateTime  @default(dbgenerated("NOW(3)")) @map("created_at")
+  updatedAt DateTime  @default(dbgenerated("NOW(3) ON UPDATE NOW(3)")) @map("updated_at")
   title     String    @map("title")
   content   String    @map("content")
   author    User      @relation(fields: [authorId], references: [id])
@@ -42,8 +42,8 @@ model Post {
 
 model Comment {
   id        String   @id @default(cuid())
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(dbgenerated("NOW(3)")) @map("created_at")
+  updatedAt DateTime @default(dbgenerated("NOW(3) ON UPDATE NOW(3)")) @map("updated_at")
   content   String   @map("content")
   author    User     @relation(fields: [authorId], references: [id])
   authorId  Int      @map("author_id")
