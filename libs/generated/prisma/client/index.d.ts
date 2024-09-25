@@ -28,6 +28,11 @@ export type Post = $Result.DefaultSelection<Prisma.$PostPayload>
  * 
  */
 export type Comment = $Result.DefaultSelection<Prisma.$CommentPayload>
+/**
+ * Model PostDate
+ * 
+ */
+export type PostDate = $Result.DefaultSelection<Prisma.$PostDatePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -181,6 +186,16 @@ export class PrismaClient<
     * ```
     */
   get comment(): Prisma.CommentDelegate<ExtArgs>;
+
+  /**
+   * `prisma.postDate`: Exposes CRUD operations for the **PostDate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PostDates
+    * const postDates = await prisma.postDate.findMany()
+    * ```
+    */
+  get postDate(): Prisma.PostDateDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -622,7 +637,8 @@ export namespace Prisma {
   export const ModelName: {
     User: 'User',
     Post: 'Post',
-    Comment: 'Comment'
+    Comment: 'Comment',
+    PostDate: 'PostDate'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -638,7 +654,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "post" | "comment"
+      modelProps: "user" | "post" | "comment" | "postDate"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -837,6 +853,72 @@ export namespace Prisma {
           count: {
             args: Prisma.CommentCountArgs<ExtArgs>
             result: $Utils.Optional<CommentCountAggregateOutputType> | number
+          }
+        }
+      }
+      PostDate: {
+        payload: Prisma.$PostDatePayload<ExtArgs>
+        fields: Prisma.PostDateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PostDateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostDatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PostDateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostDatePayload>
+          }
+          findFirst: {
+            args: Prisma.PostDateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostDatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PostDateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostDatePayload>
+          }
+          findMany: {
+            args: Prisma.PostDateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostDatePayload>[]
+          }
+          create: {
+            args: Prisma.PostDateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostDatePayload>
+          }
+          createMany: {
+            args: Prisma.PostDateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.PostDateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostDatePayload>
+          }
+          update: {
+            args: Prisma.PostDateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostDatePayload>
+          }
+          deleteMany: {
+            args: Prisma.PostDateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PostDateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PostDateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostDatePayload>
+          }
+          aggregate: {
+            args: Prisma.PostDateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePostDate>
+          }
+          groupBy: {
+            args: Prisma.PostDateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PostDateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PostDateCountArgs<ExtArgs>
+            result: $Utils.Optional<PostDateCountAggregateOutputType> | number
           }
         }
       }
@@ -3928,6 +4010,838 @@ export namespace Prisma {
 
 
   /**
+   * Model PostDate
+   */
+
+  export type AggregatePostDate = {
+    _count: PostDateCountAggregateOutputType | null
+    _min: PostDateMinAggregateOutputType | null
+    _max: PostDateMaxAggregateOutputType | null
+  }
+
+  export type PostDateMinAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    postCreatedAt: Date | null
+    postUpdatedAt: Date | null
+  }
+
+  export type PostDateMaxAggregateOutputType = {
+    id: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    postCreatedAt: Date | null
+    postUpdatedAt: Date | null
+  }
+
+  export type PostDateCountAggregateOutputType = {
+    id: number
+    createdAt: number
+    updatedAt: number
+    postCreatedAt: number
+    postUpdatedAt: number
+    _all: number
+  }
+
+
+  export type PostDateMinAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    postCreatedAt?: true
+    postUpdatedAt?: true
+  }
+
+  export type PostDateMaxAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    postCreatedAt?: true
+    postUpdatedAt?: true
+  }
+
+  export type PostDateCountAggregateInputType = {
+    id?: true
+    createdAt?: true
+    updatedAt?: true
+    postCreatedAt?: true
+    postUpdatedAt?: true
+    _all?: true
+  }
+
+  export type PostDateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PostDate to aggregate.
+     */
+    where?: PostDateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostDates to fetch.
+     */
+    orderBy?: PostDateOrderByWithRelationInput | PostDateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PostDateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostDates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostDates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PostDates
+    **/
+    _count?: true | PostDateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PostDateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PostDateMaxAggregateInputType
+  }
+
+  export type GetPostDateAggregateType<T extends PostDateAggregateArgs> = {
+        [P in keyof T & keyof AggregatePostDate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePostDate[P]>
+      : GetScalarType<T[P], AggregatePostDate[P]>
+  }
+
+
+
+
+  export type PostDateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostDateWhereInput
+    orderBy?: PostDateOrderByWithAggregationInput | PostDateOrderByWithAggregationInput[]
+    by: PostDateScalarFieldEnum[] | PostDateScalarFieldEnum
+    having?: PostDateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PostDateCountAggregateInputType | true
+    _min?: PostDateMinAggregateInputType
+    _max?: PostDateMaxAggregateInputType
+  }
+
+  export type PostDateGroupByOutputType = {
+    id: string
+    createdAt: Date
+    updatedAt: Date
+    postCreatedAt: Date
+    postUpdatedAt: Date
+    _count: PostDateCountAggregateOutputType | null
+    _min: PostDateMinAggregateOutputType | null
+    _max: PostDateMaxAggregateOutputType | null
+  }
+
+  type GetPostDateGroupByPayload<T extends PostDateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PostDateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PostDateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PostDateGroupByOutputType[P]>
+            : GetScalarType<T[P], PostDateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PostDateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    postCreatedAt?: boolean
+    postUpdatedAt?: boolean
+  }, ExtArgs["result"]["postDate"]>
+
+
+  export type PostDateSelectScalar = {
+    id?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    postCreatedAt?: boolean
+    postUpdatedAt?: boolean
+  }
+
+
+  export type $PostDatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PostDate"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      createdAt: Date
+      updatedAt: Date
+      postCreatedAt: Date
+      postUpdatedAt: Date
+    }, ExtArgs["result"]["postDate"]>
+    composites: {}
+  }
+
+  type PostDateGetPayload<S extends boolean | null | undefined | PostDateDefaultArgs> = $Result.GetResult<Prisma.$PostDatePayload, S>
+
+  type PostDateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PostDateFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PostDateCountAggregateInputType | true
+    }
+
+  export interface PostDateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PostDate'], meta: { name: 'PostDate' } }
+    /**
+     * Find zero or one PostDate that matches the filter.
+     * @param {PostDateFindUniqueArgs} args - Arguments to find a PostDate
+     * @example
+     * // Get one PostDate
+     * const postDate = await prisma.postDate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PostDateFindUniqueArgs>(args: SelectSubset<T, PostDateFindUniqueArgs<ExtArgs>>): Prisma__PostDateClient<$Result.GetResult<Prisma.$PostDatePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PostDate that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PostDateFindUniqueOrThrowArgs} args - Arguments to find a PostDate
+     * @example
+     * // Get one PostDate
+     * const postDate = await prisma.postDate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PostDateFindUniqueOrThrowArgs>(args: SelectSubset<T, PostDateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PostDateClient<$Result.GetResult<Prisma.$PostDatePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PostDate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostDateFindFirstArgs} args - Arguments to find a PostDate
+     * @example
+     * // Get one PostDate
+     * const postDate = await prisma.postDate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PostDateFindFirstArgs>(args?: SelectSubset<T, PostDateFindFirstArgs<ExtArgs>>): Prisma__PostDateClient<$Result.GetResult<Prisma.$PostDatePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PostDate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostDateFindFirstOrThrowArgs} args - Arguments to find a PostDate
+     * @example
+     * // Get one PostDate
+     * const postDate = await prisma.postDate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PostDateFindFirstOrThrowArgs>(args?: SelectSubset<T, PostDateFindFirstOrThrowArgs<ExtArgs>>): Prisma__PostDateClient<$Result.GetResult<Prisma.$PostDatePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PostDates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostDateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PostDates
+     * const postDates = await prisma.postDate.findMany()
+     * 
+     * // Get first 10 PostDates
+     * const postDates = await prisma.postDate.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const postDateWithIdOnly = await prisma.postDate.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PostDateFindManyArgs>(args?: SelectSubset<T, PostDateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostDatePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PostDate.
+     * @param {PostDateCreateArgs} args - Arguments to create a PostDate.
+     * @example
+     * // Create one PostDate
+     * const PostDate = await prisma.postDate.create({
+     *   data: {
+     *     // ... data to create a PostDate
+     *   }
+     * })
+     * 
+     */
+    create<T extends PostDateCreateArgs>(args: SelectSubset<T, PostDateCreateArgs<ExtArgs>>): Prisma__PostDateClient<$Result.GetResult<Prisma.$PostDatePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PostDates.
+     * @param {PostDateCreateManyArgs} args - Arguments to create many PostDates.
+     * @example
+     * // Create many PostDates
+     * const postDate = await prisma.postDate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PostDateCreateManyArgs>(args?: SelectSubset<T, PostDateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a PostDate.
+     * @param {PostDateDeleteArgs} args - Arguments to delete one PostDate.
+     * @example
+     * // Delete one PostDate
+     * const PostDate = await prisma.postDate.delete({
+     *   where: {
+     *     // ... filter to delete one PostDate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PostDateDeleteArgs>(args: SelectSubset<T, PostDateDeleteArgs<ExtArgs>>): Prisma__PostDateClient<$Result.GetResult<Prisma.$PostDatePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PostDate.
+     * @param {PostDateUpdateArgs} args - Arguments to update one PostDate.
+     * @example
+     * // Update one PostDate
+     * const postDate = await prisma.postDate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PostDateUpdateArgs>(args: SelectSubset<T, PostDateUpdateArgs<ExtArgs>>): Prisma__PostDateClient<$Result.GetResult<Prisma.$PostDatePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PostDates.
+     * @param {PostDateDeleteManyArgs} args - Arguments to filter PostDates to delete.
+     * @example
+     * // Delete a few PostDates
+     * const { count } = await prisma.postDate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PostDateDeleteManyArgs>(args?: SelectSubset<T, PostDateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PostDates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostDateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PostDates
+     * const postDate = await prisma.postDate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PostDateUpdateManyArgs>(args: SelectSubset<T, PostDateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PostDate.
+     * @param {PostDateUpsertArgs} args - Arguments to update or create a PostDate.
+     * @example
+     * // Update or create a PostDate
+     * const postDate = await prisma.postDate.upsert({
+     *   create: {
+     *     // ... data to create a PostDate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PostDate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PostDateUpsertArgs>(args: SelectSubset<T, PostDateUpsertArgs<ExtArgs>>): Prisma__PostDateClient<$Result.GetResult<Prisma.$PostDatePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PostDates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostDateCountArgs} args - Arguments to filter PostDates to count.
+     * @example
+     * // Count the number of PostDates
+     * const count = await prisma.postDate.count({
+     *   where: {
+     *     // ... the filter for the PostDates we want to count
+     *   }
+     * })
+    **/
+    count<T extends PostDateCountArgs>(
+      args?: Subset<T, PostDateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PostDateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PostDate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostDateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PostDateAggregateArgs>(args: Subset<T, PostDateAggregateArgs>): Prisma.PrismaPromise<GetPostDateAggregateType<T>>
+
+    /**
+     * Group by PostDate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostDateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PostDateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PostDateGroupByArgs['orderBy'] }
+        : { orderBy?: PostDateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PostDateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPostDateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PostDate model
+   */
+  readonly fields: PostDateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PostDate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PostDateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PostDate model
+   */ 
+  interface PostDateFieldRefs {
+    readonly id: FieldRef<"PostDate", 'String'>
+    readonly createdAt: FieldRef<"PostDate", 'DateTime'>
+    readonly updatedAt: FieldRef<"PostDate", 'DateTime'>
+    readonly postCreatedAt: FieldRef<"PostDate", 'DateTime'>
+    readonly postUpdatedAt: FieldRef<"PostDate", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PostDate findUnique
+   */
+  export type PostDateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostDate
+     */
+    select?: PostDateSelect<ExtArgs> | null
+    /**
+     * Filter, which PostDate to fetch.
+     */
+    where: PostDateWhereUniqueInput
+  }
+
+  /**
+   * PostDate findUniqueOrThrow
+   */
+  export type PostDateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostDate
+     */
+    select?: PostDateSelect<ExtArgs> | null
+    /**
+     * Filter, which PostDate to fetch.
+     */
+    where: PostDateWhereUniqueInput
+  }
+
+  /**
+   * PostDate findFirst
+   */
+  export type PostDateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostDate
+     */
+    select?: PostDateSelect<ExtArgs> | null
+    /**
+     * Filter, which PostDate to fetch.
+     */
+    where?: PostDateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostDates to fetch.
+     */
+    orderBy?: PostDateOrderByWithRelationInput | PostDateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PostDates.
+     */
+    cursor?: PostDateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostDates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostDates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PostDates.
+     */
+    distinct?: PostDateScalarFieldEnum | PostDateScalarFieldEnum[]
+  }
+
+  /**
+   * PostDate findFirstOrThrow
+   */
+  export type PostDateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostDate
+     */
+    select?: PostDateSelect<ExtArgs> | null
+    /**
+     * Filter, which PostDate to fetch.
+     */
+    where?: PostDateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostDates to fetch.
+     */
+    orderBy?: PostDateOrderByWithRelationInput | PostDateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PostDates.
+     */
+    cursor?: PostDateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostDates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostDates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PostDates.
+     */
+    distinct?: PostDateScalarFieldEnum | PostDateScalarFieldEnum[]
+  }
+
+  /**
+   * PostDate findMany
+   */
+  export type PostDateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostDate
+     */
+    select?: PostDateSelect<ExtArgs> | null
+    /**
+     * Filter, which PostDates to fetch.
+     */
+    where?: PostDateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PostDates to fetch.
+     */
+    orderBy?: PostDateOrderByWithRelationInput | PostDateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PostDates.
+     */
+    cursor?: PostDateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PostDates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PostDates.
+     */
+    skip?: number
+    distinct?: PostDateScalarFieldEnum | PostDateScalarFieldEnum[]
+  }
+
+  /**
+   * PostDate create
+   */
+  export type PostDateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostDate
+     */
+    select?: PostDateSelect<ExtArgs> | null
+    /**
+     * The data needed to create a PostDate.
+     */
+    data: XOR<PostDateCreateInput, PostDateUncheckedCreateInput>
+  }
+
+  /**
+   * PostDate createMany
+   */
+  export type PostDateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PostDates.
+     */
+    data: PostDateCreateManyInput | PostDateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PostDate update
+   */
+  export type PostDateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostDate
+     */
+    select?: PostDateSelect<ExtArgs> | null
+    /**
+     * The data needed to update a PostDate.
+     */
+    data: XOR<PostDateUpdateInput, PostDateUncheckedUpdateInput>
+    /**
+     * Choose, which PostDate to update.
+     */
+    where: PostDateWhereUniqueInput
+  }
+
+  /**
+   * PostDate updateMany
+   */
+  export type PostDateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PostDates.
+     */
+    data: XOR<PostDateUpdateManyMutationInput, PostDateUncheckedUpdateManyInput>
+    /**
+     * Filter which PostDates to update
+     */
+    where?: PostDateWhereInput
+  }
+
+  /**
+   * PostDate upsert
+   */
+  export type PostDateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostDate
+     */
+    select?: PostDateSelect<ExtArgs> | null
+    /**
+     * The filter to search for the PostDate to update in case it exists.
+     */
+    where: PostDateWhereUniqueInput
+    /**
+     * In case the PostDate found by the `where` argument doesn't exist, create a new PostDate with this data.
+     */
+    create: XOR<PostDateCreateInput, PostDateUncheckedCreateInput>
+    /**
+     * In case the PostDate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PostDateUpdateInput, PostDateUncheckedUpdateInput>
+  }
+
+  /**
+   * PostDate delete
+   */
+  export type PostDateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostDate
+     */
+    select?: PostDateSelect<ExtArgs> | null
+    /**
+     * Filter which PostDate to delete.
+     */
+    where: PostDateWhereUniqueInput
+  }
+
+  /**
+   * PostDate deleteMany
+   */
+  export type PostDateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PostDates to delete
+     */
+    where?: PostDateWhereInput
+  }
+
+  /**
+   * PostDate without action
+   */
+  export type PostDateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostDate
+     */
+    select?: PostDateSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -3975,6 +4889,17 @@ export namespace Prisma {
   };
 
   export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
+
+
+  export const PostDateScalarFieldEnum: {
+    id: 'id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    postCreatedAt: 'postCreatedAt',
+    postUpdatedAt: 'postUpdatedAt'
+  };
+
+  export type PostDateScalarFieldEnum = (typeof PostDateScalarFieldEnum)[keyof typeof PostDateScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -4224,6 +5149,58 @@ export namespace Prisma {
     postId?: IntWithAggregatesFilter<"Comment"> | number
   }
 
+  export type PostDateWhereInput = {
+    AND?: PostDateWhereInput | PostDateWhereInput[]
+    OR?: PostDateWhereInput[]
+    NOT?: PostDateWhereInput | PostDateWhereInput[]
+    id?: StringFilter<"PostDate"> | string
+    createdAt?: DateTimeFilter<"PostDate"> | Date | string
+    updatedAt?: DateTimeFilter<"PostDate"> | Date | string
+    postCreatedAt?: DateTimeFilter<"PostDate"> | Date | string
+    postUpdatedAt?: DateTimeFilter<"PostDate"> | Date | string
+  }
+
+  export type PostDateOrderByWithRelationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    postCreatedAt?: SortOrder
+    postUpdatedAt?: SortOrder
+  }
+
+  export type PostDateWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PostDateWhereInput | PostDateWhereInput[]
+    OR?: PostDateWhereInput[]
+    NOT?: PostDateWhereInput | PostDateWhereInput[]
+    createdAt?: DateTimeFilter<"PostDate"> | Date | string
+    updatedAt?: DateTimeFilter<"PostDate"> | Date | string
+    postCreatedAt?: DateTimeFilter<"PostDate"> | Date | string
+    postUpdatedAt?: DateTimeFilter<"PostDate"> | Date | string
+  }, "id">
+
+  export type PostDateOrderByWithAggregationInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    postCreatedAt?: SortOrder
+    postUpdatedAt?: SortOrder
+    _count?: PostDateCountOrderByAggregateInput
+    _max?: PostDateMaxOrderByAggregateInput
+    _min?: PostDateMinOrderByAggregateInput
+  }
+
+  export type PostDateScalarWhereWithAggregatesInput = {
+    AND?: PostDateScalarWhereWithAggregatesInput | PostDateScalarWhereWithAggregatesInput[]
+    OR?: PostDateScalarWhereWithAggregatesInput[]
+    NOT?: PostDateScalarWhereWithAggregatesInput | PostDateScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PostDate"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PostDate"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PostDate"> | Date | string
+    postCreatedAt?: DateTimeWithAggregatesFilter<"PostDate"> | Date | string
+    postUpdatedAt?: DateTimeWithAggregatesFilter<"PostDate"> | Date | string
+  }
+
   export type UserCreateInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -4414,6 +5391,62 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     authorId?: IntFieldUpdateOperationsInput | number
     postId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type PostDateCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    postCreatedAt: Date | string
+    postUpdatedAt: Date | string
+  }
+
+  export type PostDateUncheckedCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    postCreatedAt: Date | string
+    postUpdatedAt: Date | string
+  }
+
+  export type PostDateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    postCreatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    postUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostDateUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    postCreatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    postUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostDateCreateManyInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    postCreatedAt: Date | string
+    postUpdatedAt: Date | string
+  }
+
+  export type PostDateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    postCreatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    postUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostDateUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    postCreatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    postUpdatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -4672,6 +5705,30 @@ export namespace Prisma {
   export type CommentSumOrderByAggregateInput = {
     authorId?: SortOrder
     postId?: SortOrder
+  }
+
+  export type PostDateCountOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    postCreatedAt?: SortOrder
+    postUpdatedAt?: SortOrder
+  }
+
+  export type PostDateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    postCreatedAt?: SortOrder
+    postUpdatedAt?: SortOrder
+  }
+
+  export type PostDateMinOrderByAggregateInput = {
+    id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    postCreatedAt?: SortOrder
+    postUpdatedAt?: SortOrder
   }
 
   export type PostCreateNestedManyWithoutAuthorInput = {
@@ -5429,6 +6486,10 @@ export namespace Prisma {
      * @deprecated Use CommentDefaultArgs instead
      */
     export type CommentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CommentDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PostDateDefaultArgs instead
+     */
+    export type PostDateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PostDateDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
