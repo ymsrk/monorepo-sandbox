@@ -26,7 +26,11 @@
     "enabled": true,
     "rules": {
       "recommended": true
-    }
+    },
+    "ignore": [
+      "libs/generated/**",
+      "prisma/**"
+    ]
   },
   "javascript": {
     "formatter": {
