@@ -54,6 +54,13 @@ async function main() {
       postUpdatedAt: new Date(),
     }
   });
+  
+  const postDate3 = await prisma.postDate.create({
+    data: {
+      postCreatedAt: new Date(),
+      postUpdatedAt: new Date(),
+    }
+  });
 
   console.log(`😻  ${nodeStatus}`)
   console.log({ user, comment, postDate });
